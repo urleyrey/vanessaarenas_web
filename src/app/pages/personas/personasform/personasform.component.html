@@ -1,0 +1,108 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Datos de Persona</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="form">
+            <div class="row">
+              <div class="col-md-4 p-3">
+                <div class="form-group">
+                  <label>Nombres</label>
+                  <input type="text" [formControlName]="'nombres'" class="form-control" >
+                </div>
+              </div>
+              <div class="col-md-4 p-3">
+                <div class="form-group">
+                  <label>Apellidos</label>
+                  <input type="text" [formControlName]="'apellidos'" class="form-control" >
+                </div>
+              </div>
+              <div class="col-md-4 p-3">
+                <div class="form-group">
+                  <label>Documento</label>
+                  <input type="text" [formControlName]="'documento'" class="form-control" >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 p-3">
+                  <div class="form-group">
+                    <label>Celular</label>
+                    <input type="text" [formControlName]="'celular'" class="form-control" >
+                  </div>
+                </div>
+                <div class="col-md-4 p-3">
+                    <div class="form-group">
+                        <label>Sexo</label>
+                        <select [formControlName]="'sexo'" class="form-control form-select">
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 p-3">
+                  <div class="form-group">
+                    <label>Fecha Nacimiento (YYYY/MM/DD)</label>
+                    <input type="text" [formControlName]="'fecha_nacimiento'" class="form-control" >
+                  </div>
+                </div>
+              </div>
+            <div class="row">
+                <div class="col-md-6 p-3">
+                  <div class="form-group">
+                    <label>Barrio</label>
+                    <select [formControlName]="'barrio_id'" class="form-control form-select">
+                        <option *ngFor="let b of barrios" value={{b.value}}>{{b.text}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 p-3">
+                    <div class="form-group">
+                      <label>Puesto Votacion</label>
+                      <select [formControlName]="'puesto_id'" class="form-control form-select">
+                          <option *ngFor="let pv of puestos" value={{pv.value}}>{{pv.text}}</option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 p-3">
+                  <div class="form-group">
+                    <label>Rol</label>
+                    <select [formControlName]="'rol_id'" class="form-control form-select">
+                        <option *ngFor="let r of roles" value={{r.value}}>{{r.text}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 p-3">
+                    <div class="form-group">
+                      <label>Lider</label>
+                      <select [formControlName]="'lider_id'" class="form-control form-select">
+                          <option *ngFor="let l of lideres" value={{l.value}}>{{l.text}}</option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button (click)="back()" class="btn btn-light btn-rounded" type="button">Cancelar</button>
+                    </div>
+                </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                    <button (click)="add()" class="btn btn-success btn-rounded" type="button">Registrar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

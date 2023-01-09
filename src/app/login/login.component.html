@@ -1,0 +1,40 @@
+<div class="bg">
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+  
+              <div class="mb-md-5 mt-md-4 formulario">
+  
+                <img src="../../assets/img/logo.jpg" alt="Vanessa Arenas" style="border-radius: 75px;" height="150px" width="150px">
+                <br>
+                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                <p class="text-white-50 mb-5">Por favor, digite su Usuario y Contraseña!</p>
+  
+                <form [formGroup]="form">
+                    <div class="form-outline form-white mb-4">
+                    <input type="text" [formControlName]="'nombre'" class="form-control form-control-lg input-login"/>
+                    <label class="form-label">Usuario</label>
+                    </div>
+    
+                    <div class="form-outline form-white mb-4">
+                    <input type="password" [formControlName]="'clave'" class="form-control form-control-lg input-login" />
+                    <label class="form-label">Contraseña</label>
+                    </div>
+    
+                    <div class="d-grid gap-2">
+                        <button (click)="login()" style="width: 100%;" class="btn btn-danger btn-rounded" type="submit">Login</button>
+                    </div>
+                </form>
+                
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

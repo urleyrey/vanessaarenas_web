@@ -1,0 +1,26 @@
+body,
+html {
+  height: 100%;
+}
+
+.bg {
+  /* The image used */
+  background-image: url("../../assets/img/bg1.png");
+  /* Full height */
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.input-login{
+    height: 30px;
+    background-color: white;
+    color: black;
+    text-align: center;
+}
+
+.formulario{
+    font-size: 1rem;
+}
