@@ -27,10 +27,12 @@
                 <div class="col-md-6 p-3">
                   <div class="form-group">
                     <label>Persona</label>
-                    <!-- <input type="text" [formControlName]="'persona_id'" class="form-control" > -->
-                    <select [formControlName]="'persona_id'" class="form-control form-select">
+                    <!-- <select [formControlName]="'persona_id'" class="form-control form-select">
                         <option *ngFor="let data of personas" value={{data.value}}>{{data.text}}</option>
-                    </select>
+                    </select> -->
+                    <ng-select [formControlName]="'persona_id'" class="form-control form-select">
+                      <ng-option *ngFor="let data of personas" [value]="data.value">{{data.text}}</ng-option>
+                   </ng-select>
                   </div>
                 </div>
                 <div class="col-md-6 p-3">

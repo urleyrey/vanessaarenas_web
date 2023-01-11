@@ -81,10 +81,10 @@
                     </button>
                   </td>
                   <td class="td-actions text-center">
-                    <button (click)="edit(data.id)" class="btn btn-info btn-floating btn-sm">
+                    <button [disabled]="data.id==1" (click)="edit(data.id)" class="btn btn-info btn-floating btn-sm">
                         <i class="fa fa-eye"></i>
                     </button>
-                    <button (click)="delete(data.id)" class="btn btn-danger btn-floating btn-sm">
+                    <button [disabled]="data.id==1" (click)="delete(data.id)" class="btn btn-danger btn-floating btn-sm">
                         <i class="fa fa-trash"></i>
                     </button>
                   </td>

@@ -1,3 +1,8 @@
+@import "~@ng-select/ng-select/themes/material.theme.css";
+
+.ng-select div, .ng-select input, .ng-select span {
+    background-color: white !important;
+}
 .btn-rounded{
     width: 100%; border-radius: 20px;
 }
