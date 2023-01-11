@@ -18,6 +18,7 @@ import { UsuariosComponent } from '../../pages/usuarios/usuarios.component';
 import { UsuariosformComponent } from '../../pages/usuarios/usuariosform/usuariosform.component';
 import { PersonasComponent } from '../../pages/personas/personas.component';
 import { PersonasformComponent } from '../../pages/personas/personasform/personasform.component';
+import { PuestosComponent } from '../../pages/puestos/puestos.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,7 @@ import { PersonasformComponent } from '../../pages/personas/personasform/persona
     ChartsModule,
     NgbModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-bottom-center'
+      positionClass: 'toast-top-center'
 })
   ],
   declarations: [
@@ -44,6 +45,7 @@ import { PersonasformComponent } from '../../pages/personas/personasform/persona
     UsuariosformComponent,
     PersonasComponent,
     PersonasformComponent,
+    PuestosComponent,
   ]
 })
 

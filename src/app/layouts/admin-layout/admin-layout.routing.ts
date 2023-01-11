@@ -12,6 +12,7 @@ import { UsuariosComponent } from '../../pages/usuarios/usuarios.component';
 import { UsuariosformComponent } from '../../pages/usuarios/usuariosform/usuariosform.component';
 import { PersonasComponent } from '../../pages/personas/personas.component';
 import { PersonasformComponent } from '../../pages/personas/personasform/personasform.component';
+import { PuestosComponent } from '../../pages/puestos/puestos.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -19,6 +20,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'usuarios/form/:id',  component: UsuariosformComponent },
     { path: 'personas',       component: PersonasComponent },
     { path: 'personas/form/:id',  component: PersonasformComponent },
+    { path: 'puestovotacion',       component: PuestosComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },

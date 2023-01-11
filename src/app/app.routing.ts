@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes =[
   {
@@ -15,9 +16,11 @@ const routes: Routes =[
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
+    canActivate: [LoginGuard],
   }, {
     path: '',
     component: AdminLayoutComponent,
+    canActivate: [LoginGuard],
     children: [
         {
       path: '',
@@ -25,7 +28,7 @@ const routes: Routes =[
   }]},
   {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: 'login'
   }
 ];
 

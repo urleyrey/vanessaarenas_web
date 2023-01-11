@@ -10,6 +10,7 @@ import Chart from 'chart.js';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+    public dataUser = JSON.parse(localStorage.getItem('userData'));
     private listTitles: any[];
     location: Location;
       mobile_menu_visible: any = 0;

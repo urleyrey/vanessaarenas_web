@@ -25,7 +25,9 @@ import { LoginComponent } from './login/login.component';
     RouterModule,
     AppRoutingModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(
+      {positionClass: 'toast-bottom-full-width'}
+    )
   ],
   declarations: [
     AppComponent,

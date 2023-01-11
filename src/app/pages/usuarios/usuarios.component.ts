@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, VERSION } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioService } from '../../services/usuario.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-usuarios',
@@ -19,9 +20,12 @@ export class UsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.usuarioService.getAll()
     .subscribe(
-      response => {
-        this.usuarios = response;
-        console.log(response);
+      (response:any) => {
+        if(response.estado=='ok'){
+          this.usuarios = response.data;
+        }else{
+          this.toastr.error(response.data, 'Error');
+        }
       }
     )
   }
@@ -31,7 +35,7 @@ export class UsuariosComponent implements OnInit {
       this.usuarioService.delete(id)
       .subscribe(
         (response: any) => {
-          if(response=='ok'){
+          if(response.estado=='ok'){
             window.location.reload();
           }else{
             this.toastr.error('Usuario no pudo ser eliminado, Intenta de nuevo por favor!', 'Error');
@@ -47,6 +51,17 @@ export class UsuariosComponent implements OnInit {
 
   openForm() {
     this.router.navigate(['usuarios','form', 0]);
+  }
+
+  name = 'ExcelSheet.xlsx';
+  exportToExcel(): void {
+    let element = document.getElementById('data-table');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, this.name);
   }
 
 }

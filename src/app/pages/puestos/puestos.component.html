@@ -5,10 +5,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title"> Listado de Personas 
-            <button class="btn btn-info btn-floating btn-sm" (click)="openForm()">
-                <i class="fa fa-plus"></i>
-            </button>
+          <h4 class="card-title"> Listado de Puestos de Votación 
             <button class="btn btn-success btn-floating btn-sm" (click)="exportToExcel()">
               <i class="fa fa-file-excel"></i>
             </button>
@@ -25,65 +22,36 @@
                   ID
                 </th>
                 <th>
-                  Nombres
+                  Nombre
                 </th>
                 <th>
-                  documento
+                  direccion
                 </th>
                 <th>
-                  Genero
-                </th>
-                <th>
-                  Celular
-                </th>
-                <th>
-                  Puesto
-                </th>
-                <th>
-                  Rol
+                  Comuna
                 </th>
                 <th class="text-center">
                   Votantes
                 </th>
-                <th class="text-center">
-                  Acciones
-                </th>
               </thead>
               <tbody>
-                <tr *ngFor="let data of personas">
+                <tr *ngFor="let data of puestos">
                   <td>
                     {{data.id}}
                   </td>
                   <td>
-                    {{data.nombres}} {{data.apellidos}}
+                    {{data.nombre}}
                   </td>
                   <td>
-                    {{data.documento}}
+                    {{data.direccion}}
                   </td>
                   <td>
-                    {{data.sexo}}
-                  </td>
-                  <td>
-                    {{data.celular}}
-                  </td>
-                  <td>
-                    {{data.puesto}}
-                  </td>
-                  <td>
-                    {{data.rol}}
+                    {{data.comuna}}
                   </td>
                   <td class="text-center">
                     <button (click)="votantesList(data.id)" class="btn btn-success btn-floating btn-sm"
                       [disabled]="data.votantes==0">
                       {{data.votantes}}
-                    </button>
-                  </td>
-                  <td class="td-actions text-center">
-                    <button (click)="edit(data.id)" class="btn btn-info btn-floating btn-sm">
-                        <i class="fa fa-eye"></i>
-                    </button>
-                    <button (click)="delete(data.id)" class="btn btn-danger btn-floating btn-sm">
-                        <i class="fa fa-trash"></i>
                     </button>
                   </td>
                 </tr>
@@ -95,5 +63,3 @@
     </div>
   </div>
 </div>
-
-

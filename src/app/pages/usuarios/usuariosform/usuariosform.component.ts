@@ -37,16 +37,22 @@ export class UsuariosformComponent implements OnInit {
     this.id=this.rutaActiva.snapshot.params.id;
     if(this.id!=0){
       this.usuarioService.get(this.id)
-      .subscribe((response:any) => {
-        console.log(response);
-        this.form.patchValue({
-          nombre: response[0].nombre,
-          clave:  response[0].clave,
-          persona_id:  response[0].persona_id,
-          estado:  response[0].estado
-        });
+      .subscribe((response_edit:any) => {
+        if(response_edit.estado=='ok'){
+          this.form.patchValue({
+            nombre: response_edit.data[0].nombre,
+            clave:  response_edit.data[0].clave,
+            persona_id:  response_edit.data[0].persona_id,
+            estado:  response_edit.data[0].estado
+          });
+        }else{
+          this.toastr.error('No se pudo obtener información del Usuario, Intenta de nuevo por favor!', 'Error');
+        }
+        
+
       }, (err)=> console.log(err)
       );
+
     }
   }
 
@@ -55,7 +61,7 @@ export class UsuariosformComponent implements OnInit {
       this.usuarioService.add(this.form.getRawValue())
       .subscribe(
         (response: any) => {
-          if(response=='ok'){
+          if(response.estado=='ok'){
             this.toastr.success('Usuario nuevo registrado correctamente', 'Bien hecho!');
             this.router.navigate(['usuarios']);
           }else{
@@ -67,7 +73,7 @@ export class UsuariosformComponent implements OnInit {
       this.usuarioService.edit(this.id, this.form.getRawValue())
       .subscribe(
         (response: any) => {
-          if(response=='ok'){
+          if(response.estado=='ok'){
             this.toastr.success('Información de Usuario editada correctamente', 'Bien hecho!');
             this.router.navigate(['usuarios']);
           }else{
@@ -84,12 +90,14 @@ export class UsuariosformComponent implements OnInit {
   }
 
   llenarSelects(){
-    console.log("personas:", this.personas);
     this.personaService.getAll()
     .subscribe(
-      (response: any) => {
-        this.personas = this.selectService.formatSelect('persona',response);
-        console.log("personas1:", response);
+      (response_p: any) => {
+        if(response_p.estado=='ok'){
+          this.personas = this.selectService.formatSelect('persona',response_p.data);
+        }else{
+          this.toastr.error('No se pudo obtener el listado de Personas. Intenta Nuevamente', 'Error');
+        }
       }, (err)=> console.log(err)
     );
   }

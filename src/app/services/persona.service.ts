@@ -19,6 +19,30 @@ export class PersonaService {
     return this.http.get(this.url+'/v1/persona');
   }
 
+  getByRol (rol) {
+    let dataHeaders = new HttpHeaders();
+
+    dataHeaders = dataHeaders.append("Content-Type", "application/json");
+    
+    return this.http.get(this.url+'/v1/persona/rol/'+rol);
+  }
+
+  getByLider (lider) {
+    let dataHeaders = new HttpHeaders();
+
+    dataHeaders = dataHeaders.append("Content-Type", "application/json");
+    
+    return this.http.get(this.url+'/v1/persona/lider/'+lider);
+  }
+
+  getByPuesto (puesto) {
+    let dataHeaders = new HttpHeaders();
+
+    dataHeaders = dataHeaders.append("Content-Type", "application/json");
+    
+    return this.http.get(this.url+'/v1/persona/puesto/'+puesto);
+  }
+
   get (id) {
     let dataHeaders = new HttpHeaders();
 

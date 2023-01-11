@@ -28,13 +28,14 @@ export class LoginComponent implements OnInit {
 
   login(){
     console.log(this.form.getRawValue());
-    console.log(this.form.get('nombre').value);
     this.loginService.login(this.form.getRawValue())
     .subscribe(
       (response: any) => {
-        console.log(response.length);
-        if(response.length>0){
-          this.toastr.success(response[0].nombre, 'Bienvenido');
+        console.log(response);
+        console.log(response.estado);
+        if(response.estado=='ok'){
+          localStorage.setItem('userData', JSON.stringify(response.data[0]));
+          this.toastr.success(response.data.nombre, 'Bienvenido');
           this.router.navigate(['']);
         }else{
           this.toastr.error('Usuario o contraseña incorrecto, verifica por favor!', 'Error');

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 declare interface RouteInfo {
     path: string;
@@ -10,10 +12,13 @@ export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'design_app', class: '' },
     { path: '/usuarios', title: 'Usuarios',  icon:'users_circle-08', class: '' },
     { path: '/personas', title: 'Personas',  icon:'users_single-02', class: '' },
-    { path: '/coordinadores', title: 'Coordinadores',  icon:'business_badge', class: '' },
+    // { path: '/coordinador', title: 'Coordinadores',  icon:'business_badge', class: '' },
+    // { path: '/lider', title: 'Lideres',  icon:'business_badge', class: '' },
+    // { path: '/votante', title: 'Votante',  icon:'business_badge', class: '' },
+    // // { path: '/lideres', title: 'Lideres',  icon:'business_badge', class: '' },
     { path: '/puestovotacion', title: 'Puestos de Votacion',  icon:'location_pin', class: '' },
     
-    { path: '/icons', title: 'Icons',  icon:'education_atom', class: '' },
+    //{ path: '/icons', title: 'Icons',  icon:'education_atom', class: '' },
     // { path: '/maps', title: 'Maps',  icon:'location_map-big', class: '' },
     // { path: '/notifications', title: 'Notifications',  icon:'ui-1_bell-53', class: '' },
 
@@ -32,7 +37,8 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(private router: Router,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -43,4 +49,11 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+  logout(){
+    if(confirm("Seguro desea Cerrar Sesión?")){
+      this.toastr.success("Sesión finalizada con exito", 'Gracias');
+      localStorage.removeItem('userData');
+      this.router.navigate(['/login']);
+    }
+  }
 }

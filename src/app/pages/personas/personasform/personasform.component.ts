@@ -18,6 +18,7 @@ export class PersonasformComponent implements OnInit {
   public puestos:any = [];
   public roles:any = [];
   public lideres:any = [];
+  public existe:any = null;
   
   constructor(private personaService: PersonaService,
               private selectService: SelectsDataService, 
@@ -44,43 +45,59 @@ export class PersonasformComponent implements OnInit {
     this.id=this.rutaActiva.snapshot.params.id;
     if(this.id!=0){
       this.personaService.get(this.id)
-      .subscribe((response:any) => {
-        console.log(response);
-        this.form.patchValue({
-          nombres: response[0].nombres,
-          apellidos:  response[0].apellidos,
-          documento:  response[0].documento,
-          celular:  response[0].celular,
-          sexo:  response[0].sexo,
-          fecha_nacimiento:  response[0].fecha_nacimiento,
-          barrio_id:  response[0].barrio_id,
-          puesto_id:  response[0].puesto_id,
-          rol_id:  response[0].rol_id,
-          lider_id:  response[0].lider_id
-        });
+      .subscribe((response_edit:any) => {
+        if(response_edit.estado=='ok'){
+          this.form.patchValue({
+            nombres: response_edit.data[0].nombres,
+            apellidos:  response_edit.data[0].apellidos,
+            documento:  response_edit.data[0].documento,
+            celular:  response_edit.data[0].celular,
+            sexo:  response_edit.data[0].sexo,
+            fecha_nacimiento:  response_edit.data[0].fecha_nacimiento,
+            barrio_id:  response_edit.data[0].barrio_id,
+            puesto_id:  response_edit.data[0].puesto_id,
+            rol_id:  response_edit.data[0].rol_id,
+            lider_id:  response_edit.data[0].lider_id
+          });
+        }else{
+          this.toastr.error('No se pudo obtener información de la Persona, Intenta de nuevo por favor!', 'Error');
+        }
+
       }, (err)=> console.log(err)
       );
     }
   }
 
   add(){
+    //(YYYY/MM/DD)
+    console.log(this.form.value.fecha_nacimiento);
+    let fecha=this.form.value.fecha_nacimiento;
+    let formAux = this.form.getRawValue();
+    formAux.fecha_nacimiento = fecha.replaceAll("-","/");
+    console.log(formAux);
+
     if(this.id==0){
-      this.personaService.add(this.form.getRawValue())
+      this.personaService.add(formAux)
       .subscribe(
         (response: any) => {
-          if(response=='ok'){
+          if(response.data=='ok'){
+            this.existe = null;
             this.toastr.success('Persona nueva registrada correctamente', 'Bien hecho!');
             this.router.navigate(['personas']);
           }else{
-            this.toastr.error('La Persona no pudo ser registrada, Intenta de nuevo por favor!', 'Error');
+            if(response.estado=='existe'){
+              this.existe = response.data
+            }else{
+              this.toastr.error('La Persona no pudo ser registrada, Intenta de nuevo por favor!', 'Error');
+            }
           }
         }, (err)=> console.log(err)
       );
     }else{
-      this.personaService.edit(this.id, this.form.getRawValue())
+      this.personaService.edit(this.id, formAux)
       .subscribe(
         (response: any) => {
-          if(response=='ok'){
+          if(response.data=='ok'){
             this.toastr.success('Información de Persona editada correctamente', 'Bien hecho!');
             this.router.navigate(['personas']);
           }else{
@@ -100,28 +117,44 @@ export class PersonasformComponent implements OnInit {
     this.personaService.getAll()
     .subscribe(
       (responsep: any) => {
-        this.lideres = this.selectService.formatSelect('persona',responsep);
+        if(responsep.estado=='ok'){
+          this.lideres = this.selectService.formatSelect('persona',responsep.data);
+        }else{
+          this.toastr.error('No se pudo obtener el listado de Personas. Intenta Nuevamente', 'Error');
+        }
       }, (err)=> console.log(err)
     );
 
     this.selectService.barrios()
     .subscribe(
       (responseb: any) => {
-        this.barrios = this.selectService.formatSelect('barrio',responseb);
+        if(responseb.estado=='ok'){
+          this.barrios = this.selectService.formatSelect('barrio',responseb.data);
+        }else{
+          this.toastr.error('No se pudo obtener el listado de Barrios. Intenta Nuevamente', 'Error');
+        }
       }, (err)=> console.log(err)
     );
 
     this.selectService.puestos()
     .subscribe(
       (responsepv: any) => {
-        this.puestos = this.selectService.formatSelect('puesto_votacion',responsepv);
+        if(responsepv.estado=='ok'){
+          this.puestos = this.selectService.formatSelect('puesto_votacion',responsepv.data);
+        }else{
+          this.toastr.error('No se pudo obtener el listado de Puestos de Votacion. Intenta Nuevamente', 'Error');
+        }
       }, (err)=> console.log(err)
     );
 
     this.selectService.roles()
     .subscribe(
       (responser: any) => {
-        this.roles = this.selectService.formatSelect('rol',responser);
+        if(responser.estado=='ok'){
+          this.roles = this.selectService.formatSelect('rol',responser.data);
+        }else{
+          this.toastr.error('No se pudo obtener el listado de Roles. Intenta Nuevamente', 'Error');
+        }
       }, (err)=> console.log(err)
     );
   }
