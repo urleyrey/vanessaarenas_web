@@ -19,35 +19,37 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table" id="data-table">
-              <thead class=" text-primary">
-                <th>
-                  ID
-                </th>
-                <th>
-                  Nombres
-                </th>
-                <th>
-                  documento
-                </th>
-                <th>
-                  Genero
-                </th>
-                <th>
-                  Celular
-                </th>
-                <th>
-                  Puesto
-                </th>
-                <th>
-                  Rol
-                </th>
-                <th class="text-center">
-                  Votantes
-                </th>
-                <th class="text-center">
-                  Acciones
-                </th>
+            <table *ngIf="showContent" datatable="ng" [dtOptions]="dtOptions" class="row-border hover table" id="datatable">
+              <thead>
+                <tr>
+                  <th>
+                    ID
+                  </th>
+                  <th>
+                    Nombres
+                  </th>
+                  <th>
+                    documento
+                  </th>
+                  <th>
+                    Genero
+                  </th>
+                  <th>
+                    Celular
+                  </th>
+                  <th>
+                    Puesto
+                  </th>
+                  <th>
+                    Rol
+                  </th>
+                  <th class="text-center">
+                    Votantes
+                  </th>
+                  <th class="text-center">
+                    Acciones
+                  </th>
+                </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let data of personas">

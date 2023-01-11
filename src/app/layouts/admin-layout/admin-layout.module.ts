@@ -19,6 +19,7 @@ import { UsuariosformComponent } from '../../pages/usuarios/usuariosform/usuario
 import { PersonasComponent } from '../../pages/personas/personas.component';
 import { PersonasformComponent } from '../../pages/personas/personasform/personasform.component';
 import { PuestosComponent } from '../../pages/puestos/puestos.component';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { PuestosComponent } from '../../pages/puestos/puestos.component';
     ReactiveFormsModule,
     ChartsModule,
     NgbModule,
+    DataTablesModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center'
 })
