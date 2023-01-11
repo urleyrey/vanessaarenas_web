@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PersonaService } from '../../services/persona.service';
 import * as XLSX from 'xlsx';
+import { LanguageApp } from '../../data/language';
 
 @Component({
   selector: 'app-personas',
@@ -10,9 +11,10 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./personas.component.scss']
 })
 export class PersonasComponent implements OnInit {
-
+  public dtOptions: DataTables.Settings = {};
   rol:string = '';
   public personas:any = [];
+  public showContent=false;
 
   constructor(private personaService:PersonaService, 
     private router: Router,
@@ -20,6 +22,14 @@ export class PersonasComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      processing: true,
+      lengthMenu: [10, 25, 50, 100],
+      order: [[0,"desc"]],
+      language: LanguageApp.spanish_datatables
+    };
     console.log(this.rutaActiva.snapshot.url[0].path);
     this.rol=this.rutaActiva.snapshot.url[0].path;
     if(this.rol=='coordinador'){
@@ -52,6 +62,7 @@ export class PersonasComponent implements OnInit {
         (response:any) => {
           if(response.estado=='ok'){
             this.personas = response.data;
+            setTimeout(()=>this.showContent=true, 1000);
           }else{
             this.toastr.error(response.data, 'Error');
           }

@@ -10,19 +10,24 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./usuarios.component.scss']
 })
 export class UsuariosComponent implements OnInit {
-
+  public dtOptions: DataTables.Settings = {};
   public usuarios:any = [];
+  public showContent=false;
 
   constructor(private usuarioService:UsuarioService, 
     private router: Router,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers'
+    };
     this.usuarioService.getAll()
     .subscribe(
       (response:any) => {
         if(response.estado=='ok'){
           this.usuarios = response.data;
+          setTimeout(()=>this.showContent=true, 1000);
         }else{
           this.toastr.error(response.data, 'Error');
         }

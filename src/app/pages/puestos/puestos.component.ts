@@ -12,7 +12,9 @@ import * as XLSX from 'xlsx';
 })
 export class PuestosComponent implements OnInit {
 
+  public dtOptions: DataTables.Settings = {};
   public puestos:any = [];
+  public showContent=false;
 
   constructor(private personaService:PersonaService, 
     private selectService:SelectsDataService,
@@ -21,11 +23,15 @@ export class PuestosComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers'
+    };
     this.selectService.puestos()
     .subscribe(
       (response:any) => {
         if(response.estado=='ok'){
           this.puestos = response.data;
+          setTimeout(()=>this.showContent=true, 1000);
         }else{
           this.toastr.error(response.data, 'Error');
         }
