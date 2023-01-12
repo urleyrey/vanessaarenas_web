@@ -97,26 +97,21 @@ export class PersonasComponent implements OnInit {
 
   name = 'ExcelSheet.xlsx';
   exportToExcel(): void {
-    this.personaService.getAll()
-    .subscribe(
-      (responseall:any) => {
-        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(responseall);
-        const book: XLSX.WorkBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-        XLSX.writeFile(book, "Listado Todos Los Votantes.xlsx");
-      }
-    )
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.personas);
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+    XLSX.writeFile(book, "Listado Todos Los Votantes.xlsx");
   }
 
-  votantesList(id): void {
+  votantesList(id, documento): void {
     this.personaService.getByLider(id)
     .subscribe(
       (response:any) => {
         console.log(response);
-        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(response);
+        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(response.data);
         const book: XLSX.WorkBook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-        XLSX.writeFile(book, "Listado Votantes Lider "+id+".xlsx");
+        XLSX.writeFile(book, "Listado Votantes Lider "+documento+".xlsx");
       }
     )
   }

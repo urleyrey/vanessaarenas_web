@@ -58,6 +58,36 @@
                 </div>
               </div>
             </div>
+            <div class="row pt-4">
+              <div *ngIf="existe_nombre!=null" class="alert alert-danger full-width" style="width: 100%; margin: 10px;" role="alert">
+                <span>
+                  <strong>Atencion!!!</strong>
+                  <br>
+                  <strong>YA</strong> existe un usuario con el nombre de usuario [{{existe_nombre.nombre}}].
+                  Registrado para la persona con nombres [{{existe_nombre.persona}}]. 
+                  El estado actual de dicho usuario es [
+                    <span *ngIf="existe_nombre.estado==0">INACTIVO</span>
+                    <span *ngIf="existe_nombre.estado==1">ACTIVO</span>
+                  ].
+                  <br>
+                  Por favor verificar si la información es correcta.
+                </span>
+              </div>
+              <div *ngIf="existe_persona!=null" class="alert alert-danger full-width" style="width: 100%; margin: 10px;" role="alert">
+                <span>
+                  <strong>Atencion!!!</strong>
+                  <br>
+                  <strong>YA</strong> existe un usuario registrado para la persona con nombres 
+                  [{{existe_persona.persona}}]. 
+                  El estado actual de dicho usuario es [
+                    <span *ngIf="existe_persona.estado==0">INACTIVO</span>
+                    <span *ngIf="existe_persona.estado==1">ACTIVO</span>
+                  ].
+                  <br>
+                  Por favor verificar si la información es correcta.
+                </span>
+              </div>
+            </div>
           </form>
         </div>
       </div>

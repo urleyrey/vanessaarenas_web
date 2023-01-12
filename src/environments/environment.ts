@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  baseUrl: "http://localhost",
+  //baseUrl: "http://localhost",
+  baseUrl: "https://plataformavanessaarenas.com",
 };

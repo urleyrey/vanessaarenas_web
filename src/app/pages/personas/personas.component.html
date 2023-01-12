@@ -12,9 +12,9 @@
             <button class="btn btn-success btn-floating btn-sm" (click)="exportToExcel()">
               <i class="fa fa-file-excel"></i>
             </button>
-            <button class="btn btn-danger btn-floating btn-sm" (click)="exportToExcel()">
+            <!-- <button class="btn btn-danger btn-floating btn-sm" (click)="exportToExcel()">
               <i class="fa fa-file-pdf"></i>
-            </button>
+            </button> -->
           </h4>
         </div>
         <div class="card-body">
@@ -75,7 +75,7 @@
                     {{data.rol}}
                   </td>
                   <td class="text-center">
-                    <button (click)="votantesList(data.id)" class="btn btn-success btn-floating btn-sm"
+                    <button (click)="votantesList(data.id, data.documento)" class="btn btn-success btn-floating btn-sm"
                       [disabled]="data.votantes==0">
                       {{data.votantes}}
                     </button>

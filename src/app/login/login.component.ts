@@ -34,9 +34,17 @@ export class LoginComponent implements OnInit {
         console.log(response);
         console.log(response.estado);
         if(response.estado=='ok'){
-          localStorage.setItem('userData', JSON.stringify(response.data[0]));
-          this.toastr.success(response.data.nombre, 'Bienvenido');
-          this.router.navigate(['']);
+          if(response.data.length > 0){
+            if(response.data[0].estado=='1'){
+              localStorage.setItem('userData', JSON.stringify(response.data[0]));
+              this.toastr.success(response.data.nombre, 'Bienvenido');
+              this.router.navigate(['']);
+            }else{
+              this.toastr.error('Usuario INACTIVO, no puedes iniciar sesion!', 'Error');
+            }
+          }else{
+            this.toastr.error('Usuario o contraseña incorrecto, verifica por favor!', 'Error');
+          }
         }else{
           this.toastr.error('Usuario o contraseña incorrecto, verifica por favor!', 'Error');
         }

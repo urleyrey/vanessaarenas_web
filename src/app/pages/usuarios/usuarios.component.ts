@@ -58,14 +58,11 @@ export class UsuariosComponent implements OnInit {
     this.router.navigate(['usuarios','form', 0]);
   }
 
-  name = 'ExcelSheet.xlsx';
+  name = 'Listado de Usuarios.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('data-table');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.usuarios);
     const book: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
     XLSX.writeFile(book, this.name);
   }
 

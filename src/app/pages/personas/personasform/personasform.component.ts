@@ -59,6 +59,7 @@ export class PersonasformComponent implements OnInit {
             rol_id:  response_edit.data[0].rol_id,
             lider_id:  response_edit.data[0].lider_id
           });
+          this.form.controls['documento'].disable();
         }else{
           this.toastr.error('No se pudo obtener información de la Persona, Intenta de nuevo por favor!', 'Error');
         }

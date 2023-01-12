@@ -16,6 +16,8 @@ export class UsuariosformComponent implements OnInit {
   id:number = 0;
   form: FormGroup;
   public personas:any = [];
+  public existe_nombre:any = null;
+  public existe_persona:any = null;
   
   constructor(private usuarioService: UsuarioService,
               private personaService: PersonaService,
@@ -30,7 +32,7 @@ export class UsuariosformComponent implements OnInit {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       clave:  ['', Validators.required],
-      persona_id:  [1, Validators.required],
+      persona_id:  ['', Validators.required],
       estado:  [1, Validators.required],
     });
     this.llenarSelects();
@@ -57,6 +59,8 @@ export class UsuariosformComponent implements OnInit {
   }
 
   add(){
+    this.existe_nombre = null;
+    this.existe_persona = null;
     if(this.id==0){
       this.usuarioService.add(this.form.getRawValue())
       .subscribe(
@@ -65,7 +69,15 @@ export class UsuariosformComponent implements OnInit {
             this.toastr.success('Usuario nuevo registrado correctamente', 'Bien hecho!');
             this.router.navigate(['usuarios']);
           }else{
-            this.toastr.error('Usuario no pudo ser registrado, Intenta de nuevo por favor!', 'Error');
+            if(response.estado=='existe_nombre'){
+              this.existe_nombre = response.data
+            }else{
+              if(response.estado=='existe_persona'){
+                this.existe_persona = response.data
+              }else{
+                this.toastr.error('Usuario no pudo ser registrado, Intenta de nuevo por favor!', 'Error');
+              }
+            }
           }
         }, (err)=> console.log(err)
       );
@@ -77,7 +89,17 @@ export class UsuariosformComponent implements OnInit {
             this.toastr.success('Información de Usuario editada correctamente', 'Bien hecho!');
             this.router.navigate(['usuarios']);
           }else{
-            this.toastr.error('Información de Usuario no pudo ser editada, Intenta de nuevo por favor!', 'Error');
+            if(response.estado=='existe_nombre'){
+              console.log(response);
+              this.existe_nombre = response.data
+            }else{
+              if(response.estado=='existe_persona'){
+                console.log(response);
+                this.existe_persona = response.data
+              }else{
+                this.toastr.error('Información de Usuario no pudo ser editada, Intenta de nuevo por favor!', 'Error');
+              }
+            }
           }
         }, (err)=> console.log(err)
       );
